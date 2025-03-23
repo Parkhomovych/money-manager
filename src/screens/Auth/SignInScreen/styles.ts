@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
     marginTop: theme.spacing.xs,
   },
   eyeIcon: {
-    fontSize: theme.typography.sizes.md,
+    fontSize: theme.typography.sizes.xxl,
     color: theme.colors.textSecondary,
   },
 });

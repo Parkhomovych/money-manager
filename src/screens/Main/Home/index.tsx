@@ -24,9 +24,7 @@ const HomeScreen = () => {
       </View>
 
       <View style={styles.quickActions}>
-        <TouchableOpacity
-          style={styles.actionButton}
-          onPress={handleAddExpense}>
+        <TouchableOpacity style={styles.actionButton} onPress={handleAddExpense}>
           <View style={styles.actionIconContainer}>
             <Icon name="minus-circle" size={28} color={COLORS.primaryDark} />
           </View>
@@ -43,11 +41,7 @@ const HomeScreen = () => {
       <View style={styles.recentTransactions}>
         <Text style={styles.sectionTitle}>Recent Transactions</Text>
         <View style={styles.emptyTransactions}>
-          <Icon
-            name="receipt-text-outline"
-            size={48}
-            color={COLORS.textSecondary}
-          />
+          <Icon name="history" size={48} color={COLORS.textSecondary} />
           <Text style={styles.emptyTransactionsText}>
             No transactions yet{'\n'}Add your first transaction
           </Text>

@@ -46,7 +46,7 @@ export const styles = StyleSheet.create({
     fontWeight: theme.typography.weights.medium,
   },
   eyeIcon: {
-    fontSize: theme.typography.sizes.md,
+    fontSize: theme.typography.sizes.xxl,
     color: theme.colors.textSecondary,
   },
   error: {

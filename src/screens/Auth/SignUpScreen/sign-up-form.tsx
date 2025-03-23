@@ -71,7 +71,7 @@ export const SignUpForm = () => {
               <TouchableOpacity onPress={showConfirmPasswordToggle}>
                 <Icon
                   name={showConfirmPassword ? 'eye' : 'eye-with-line'}
-                  size={20}
+                  size={styles.eyeIcon.fontSize}
                   color={styles.eyeIcon.color}
                 />
               </TouchableOpacity>
