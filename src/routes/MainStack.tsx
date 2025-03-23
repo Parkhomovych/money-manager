@@ -1,9 +1,9 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import type {MainStackParamList} from '../types/navigation';
+import type {ParamsList} from '../types';
 import HomeScreen from '../screens/Main/Home';
 import SettingsScreen from '../screens/Main/Settings';
 
-const Stack = createNativeStackNavigator<MainStackParamList>();
+const Stack = createNativeStackNavigator<ParamsList['Main']>();
 
 export default function MainStack() {
   return (

@@ -1,60 +1,58 @@
-import {Alert} from 'react-native';
-import {useAppDispatch, useAppSelector, useInput} from '../../../hooks';
-import {updateProfile} from '../../../store/UserSlice/thunks/updateProfile';
-import {deleteUser} from '../../../store/UserSlice/thunks/deleteUser';
-import type {UpdateUserData} from '../../../store/UserSlice/types';
+import {useNavigation} from '@react-navigation/native';
+import {NavigationProps} from '../../../types';
+import {
+  signOut,
+  updateProfile,
+  updatePassword,
+  useAppDispatch,
+  useAppSelector,
+  authActions,
+  authSelectors,
+} from '../../../store';
 
 export const useSettings = () => {
   const dispatch = useAppDispatch();
-  const {user, error, loading} = useAppSelector(state => state.user);
-  const [name, bindName] = useInput(user?.name || '');
-  const [email, bindEmail] = useInput(user?.email || '');
+  const navigation = useNavigation<NavigationProps['Root']>();
+  const settings = useAppSelector(authSelectors.selectUserSettings);
+  const user = useAppSelector(authSelectors.selectUser);
 
-  const handleUpdateProfile = async () => {
+  const handleLogout = async () => {
     try {
-      const updateData: UpdateUserData = {
-        name: name !== user?.name ? name : undefined,
-        email: email !== user?.email ? email : undefined,
-      };
-
-      await dispatch(updateProfile(updateData)).unwrap();
-      Alert.alert('Успіх', 'Профіль успішно оновлено');
-    } catch (err) {
-      Alert.alert('Помилка', 'Не вдалося оновити профіль');
+      await dispatch(signOut());
+      navigation.reset({index: 0, routes: [{name: 'Auth'}]});
+    } catch (error) {
+      console.error('Error logging out:', error);
     }
   };
 
-  const handleDeleteAccount = () => {
-    Alert.alert(
-      'Видалення акаунту',
-      'Ви впевнені, що хочете видалити свій акаунт? Ця дія незворотна.',
-      [
-        {
-          text: 'Скасувати',
-          style: 'cancel',
-        },
-        {
-          text: 'Видалити',
-          style: 'destructive',
-          onPress: async () => {
-            try {
-              await dispatch(deleteUser()).unwrap();
-              Alert.alert('Успіх', 'Ваш акаунт успішно видалено');
-            } catch (err) {
-              Alert.alert('Помилка', 'Не вдалося видалити акаунт');
-            }
-          },
-        },
-      ],
-    );
+  const handleUpdateSettings = (newSettings: typeof settings) => {
+    dispatch(authActions.updateUserSettings(newSettings));
+  };
+
+  const handleUpdateProfile = async (displayName?: string, photoURL?: string) => {
+    try {
+      await dispatch(updateProfile({displayName, photoURL}));
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      throw error;
+    }
+  };
+
+  const handleUpdatePassword = async (newPassword: string) => {
+    try {
+      await dispatch(updatePassword(newPassword));
+    } catch (error) {
+      console.error('Error updating password:', error);
+      throw error;
+    }
   };
 
   return {
-    bindName,
-    bindEmail,
+    user,
+    settings,
+    handleLogout,
+    handleUpdateSettings,
     handleUpdateProfile,
-    handleDeleteAccount,
-    error,
-    loading,
+    handleUpdatePassword,
   };
 };

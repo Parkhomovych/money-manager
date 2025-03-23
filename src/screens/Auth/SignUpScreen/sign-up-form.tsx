@@ -1,31 +1,20 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, TouchableOpacity, Text} from 'react-native';
 import {Controller} from 'react-hook-form';
+import Icon from 'react-native-vector-icons/Entypo';
 
-import {Input, Button} from '../../../components';
+import {useBoolean} from '../../../hooks';
 import {useSignUp} from './use-sing-up';
+import {Input, Button} from '../../../components';
 import {styles} from './styles';
 
 export const SignUpForm = () => {
   const {form, onSubmit} = useSignUp();
+  const [showPassword, showPasswordToggle] = useBoolean(false);
+  const [showConfirmPassword, showConfirmPasswordToggle] = useBoolean(false);
 
   return (
     <View style={styles.form}>
-      <Controller
-        control={form.control}
-        name="name"
-        render={({field: {onChange, value}, fieldState: {error}}) => (
-          <Input
-            label="Name"
-            value={value}
-            onChangeText={onChange}
-            placeholder="Enter your name"
-            autoCapitalize="words"
-            error={error?.message}
-          />
-        )}
-      />
-
       <Controller
         control={form.control}
         name="email"
@@ -52,8 +41,17 @@ export const SignUpForm = () => {
             value={value}
             onChangeText={onChange}
             placeholder="Create password"
-            secureTextEntry
+            secureTextEntry={!showPassword}
             error={error?.message}
+            rightIcon={
+              <TouchableOpacity onPress={showPasswordToggle}>
+                <Icon
+                  name={showPassword ? 'eye' : 'eye-with-line'}
+                  size={styles.eyeIcon.fontSize}
+                  color={styles.eyeIcon.color}
+                />
+              </TouchableOpacity>
+            }
           />
         )}
       />
@@ -67,8 +65,17 @@ export const SignUpForm = () => {
             value={value}
             onChangeText={onChange}
             placeholder="Repeat password"
-            secureTextEntry
+            secureTextEntry={!showConfirmPassword}
             error={error?.message}
+            rightIcon={
+              <TouchableOpacity onPress={showConfirmPasswordToggle}>
+                <Icon
+                  name={showConfirmPassword ? 'eye' : 'eye-with-line'}
+                  size={20}
+                  color={styles.eyeIcon.color}
+                />
+              </TouchableOpacity>
+            }
           />
         )}
       />
@@ -78,6 +85,9 @@ export const SignUpForm = () => {
         onPress={form.handleSubmit(onSubmit)}
         loading={form.formState.isSubmitting}
       />
+      {form.formState.errors.root && (
+        <Text style={styles.error}>{form.formState.errors.root.message}</Text>
+      )}
     </View>
   );
 };

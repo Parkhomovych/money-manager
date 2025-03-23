@@ -1,35 +1,39 @@
-import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-export type RootStackParamList = {
-  Main: MainStackParamList;
+// ParamsList
+type AuthStackParamList = {signIn: undefined; signUp: undefined};
+type MainStackParamList = {Home: undefined; Settings: undefined};
+type RootStackParamList = {Auth: undefined; Main: undefined};
+
+export type ParamsList = {
+  Root: RootStackParamList;
   Auth: AuthStackParamList;
+  Main: MainStackParamList;
 };
+// ParamsList
 
-export type AuthStackParamList = {
-  signIn: undefined;
-  signUp: undefined;
+// NavigationProps
+type RootNavigationProps = NativeStackNavigationProp<RootStackParamList>;
+type AuthNavigationProps = NativeStackNavigationProp<AuthStackParamList>;
+type MainNavigationProps = NativeStackNavigationProp<MainStackParamList>;
+
+export type NavigationProps = {
+  Root: RootNavigationProps;
+  Auth: AuthNavigationProps;
+  Main: MainNavigationProps;
 };
+// NavigationProps
 
-export type MainStackParamList = {
-  Home: undefined;
-  Settings: undefined;
+// ScreenProps
+type SignUpScreenProps = {navigation: AuthNavigationProps};
+type SignInScreenProps = {navigation: AuthNavigationProps};
+type HomeScreenProps = {navigation: MainNavigationProps};
+type SettingsScreenProps = {navigation: MainNavigationProps};
+
+export type ScreenProps = {
+  SignIn: SignInScreenProps;
+  SignUp: SignUpScreenProps;
+  Home: HomeScreenProps;
+  Settings: SettingsScreenProps;
 };
-
-export type RootStackScreenProps<T extends keyof RootStackParamList> =
-  NativeStackScreenProps<RootStackParamList, T>;
-
-export type AuthStackScreenProps<T extends keyof AuthStackParamList> =
-  NativeStackScreenProps<AuthStackParamList, T>;
-
-export type MainStackScreenProps<T extends keyof MainStackParamList> =
-  NativeStackScreenProps<MainStackParamList, T>;
-
-export type SignInScreenProps = NativeStackScreenProps<
-  AuthStackParamList,
-  'signIn'
->;
-
-export type SignUpScreenProps = NativeStackScreenProps<
-  AuthStackParamList,
-  'signUp'
->;
+// ScreenProps

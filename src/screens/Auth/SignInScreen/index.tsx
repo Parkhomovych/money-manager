@@ -2,9 +2,9 @@ import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {SignInForm} from './sign-in-form';
 import {styles} from './styles';
-import type {SignInScreenProps} from '../../../types/navigation';
+import type {ScreenProps} from '../../../types/navigation';
 
-export const SignInScreen = ({navigation}: SignInScreenProps) => {
+export const SignInScreen = ({navigation}: ScreenProps['SignIn']) => {
   return (
     <View style={styles.container}>
       <View style={styles.content}>

@@ -1,18 +1,16 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
+import type {ScreenProps} from '../../../types/navigation';
 import {SignUpForm} from './sign-up-form';
 import {styles} from './styles';
-import type {SignUpScreenProps} from '../../../types/navigation';
 
-export const SignUpScreen = ({navigation}: SignUpScreenProps) => {
+export const SignUpScreen = ({navigation}: ScreenProps['SignUp']) => {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
         <View style={styles.header}>
           <Text style={styles.title}>Create account</Text>
-          <Text style={styles.subtitle}>
-            Fill in the form to create a new account
-          </Text>
+          <Text style={styles.subtitle}>Fill in the form to create a new account</Text>
         </View>
 
         <SignUpForm />

@@ -45,4 +45,13 @@ export const styles = StyleSheet.create({
     color: theme.colors.primary,
     fontWeight: theme.typography.weights.medium,
   },
+  eyeIcon: {
+    fontSize: theme.typography.sizes.md,
+    color: theme.colors.textSecondary,
+  },
+  error: {
+    color: theme.colors.error,
+    marginBottom: theme.spacing.sm,
+    textAlign: 'center',
+  },
 });

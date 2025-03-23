@@ -32,4 +32,15 @@ export const styles = StyleSheet.create({
     color: theme.colors.error,
     marginTop: theme.spacing.xs,
   },
+  inputContainer: {
+    position: 'relative',
+  },
+  rightIcon: {
+    position: 'absolute',
+    right: 12,
+    top: '50%',
+    transform: [{translateY: '-50%'}],
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

@@ -1,12 +1,16 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import {Controller} from 'react-hook-form';
-import {Input, Button} from '../../../components';
+import Icon from 'react-native-vector-icons/Entypo';
+
+import {useBoolean} from '../../../hooks';
 import {useSignIn} from './use-sign-in';
+import {Input, Button} from '../../../components';
 import {styles} from './styles';
 
 export const SignInForm = () => {
   const {form, onSubmit} = useSignIn();
+  const [showPassword, showPasswordToggle] = useBoolean(false);
 
   return (
     <View style={styles.form}>
@@ -36,8 +40,17 @@ export const SignInForm = () => {
             value={value}
             onChangeText={onChange}
             placeholder="Enter your password"
-            secureTextEntry
+            secureTextEntry={!showPassword}
             error={error?.message}
+            rightIcon={
+              <TouchableOpacity onPress={showPasswordToggle}>
+                <Icon
+                  name={showPassword ? 'eye' : 'eye-with-line'}
+                  size={styles.eyeIcon.fontSize}
+                  color={styles.eyeIcon.color}
+                />
+              </TouchableOpacity>
+            }
           />
         )}
       />

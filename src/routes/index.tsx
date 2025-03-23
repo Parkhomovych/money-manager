@@ -1,22 +1,22 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 
-import {RootStackParamList} from '../types/navigation';
-import {useAppSelector} from '../store/store';
+import {ParamsList} from '../types';
+import {useAppSelector} from '../store';
 import AuthStack from './AuthStack';
 import MainStack from './MainStack';
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator<ParamsList['Root']>();
 
 export default function App() {
-  const {isAuthenticated} = useAppSelector(state => state.auth);
+  const {user} = useAppSelector(state => state.auth);
 
   return (
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{headerShown: false}}
-        initialRouteName={isAuthenticated ? 'Main' : 'Auth'}>
-        {isAuthenticated ? (
+        initialRouteName={user ? 'Main' : 'Auth'}>
+        {user ? (
           <Stack.Screen name="Main" component={MainStack} />
         ) : (
           <Stack.Screen name="Auth" component={AuthStack} />

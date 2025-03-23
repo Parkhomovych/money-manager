@@ -53,4 +53,8 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: theme.spacing.xs,
   },
+  eyeIcon: {
+    fontSize: theme.typography.sizes.md,
+    color: theme.colors.textSecondary,
+  },
 });

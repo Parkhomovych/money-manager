@@ -1,39 +1,14 @@
 import {useForm} from 'react-hook-form';
 import {z} from 'zod';
 import {zodResolver} from '@hookform/resolvers/zod';
-import {signUp} from '../../../store/AuthSlice/thunks';
-import {useAppDispatch} from '../../../store';
+import {signUp, useAppDispatch} from '../../../store';
+// import {useEffect} from 'react';
 
-const defaultValues: SignUpFormData = {
-  name: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
-};
-
-export const useSignUp = () => {
-  const dispatch = useAppDispatch();
-
-  const form = useForm<SignUpFormData>({
-    resolver: zodResolver(signUpSchema),
-    defaultValues,
-  });
-
-  const onSubmit = async (data: SignUpFormData) => {
-    console.log(data);
-    try {
-      await dispatch(signUp(data));
-    } catch (err) {
-    } finally {
-    }
-  };
-
-  return {form, onSubmit};
-};
+// vlad@gmail.com
+// vla1d@gmail.com
 
 const signUpSchema = z
   .object({
-    name: z.string().min(1, 'Name is required'),
     email: z.string().min(1, 'Email is required').email('Invalid email format'),
     password: z
       .string()
@@ -47,3 +22,30 @@ const signUpSchema = z
   });
 
 export type SignUpFormData = z.infer<typeof signUpSchema>;
+const defaultValues: SignUpFormData = {email: '', password: '', confirmPassword: ''};
+
+export const useSignUp = () => {
+  const dispatch = useAppDispatch();
+
+  const form = useForm<SignUpFormData>({resolver: zodResolver(signUpSchema), defaultValues});
+
+  const onSubmit = async (data: SignUpFormData) => {
+    console.log(data);
+    try {
+      await dispatch(signUp(data));
+    } catch (err) {
+      console.log('error submit sign up', err);
+      form.setError('root', {message: err as string});
+    }
+  };
+
+  // useEffect(() => {
+  //   if (!signUpError) return;
+
+  //   setTimeout(() => {
+  //     dispatch(actions.clearError());
+  //   }, 5000);
+  // }, [signUpError, dispatch]);
+
+  return {form, onSubmit};
+};
