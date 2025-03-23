@@ -1,8 +1,9 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import auth from '@react-native-firebase/auth';
-import type {AuthCredentials, AuthResponse} from '../types';
+import {AuthResponse} from '../types';
+import {SignInFormData} from '../../../screens/Auth/SignInScreen/use-sign-in';
 
-export const signIn = createAsyncThunk<AuthResponse, AuthCredentials>(
+export const signIn = createAsyncThunk<AuthResponse, SignInFormData>(
   'auth/signIn',
   async ({email, password}) => {
     const userCredential = await auth().signInWithEmailAndPassword(

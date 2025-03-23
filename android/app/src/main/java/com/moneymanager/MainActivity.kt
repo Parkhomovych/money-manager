@@ -14,7 +14,7 @@ class MainActivity : ReactActivity() {
    */
   override fun getMainComponentName(): String = "MoneyManager"
 
-override fun onCreate(savedInstanceState: Bundle?) {
+  override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(null)
   }
   /**

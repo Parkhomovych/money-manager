@@ -23,3 +23,13 @@ export type AuthStackScreenProps<T extends keyof AuthStackParamList> =
 
 export type MainStackScreenProps<T extends keyof MainStackParamList> =
   NativeStackScreenProps<MainStackParamList, T>;
+
+export type SignInScreenProps = NativeStackScreenProps<
+  AuthStackParamList,
+  'signIn'
+>;
+
+export type SignUpScreenProps = NativeStackScreenProps<
+  AuthStackParamList,
+  'signUp'
+>;
