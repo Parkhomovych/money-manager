@@ -1,4 +1,4 @@
-import {useInput} from './useInput';
-import {useBoolean} from './useBoolean';
+import {useInput} from './use-input';
+import {useBoolean} from './use-boolean';
 
 export {useInput, useBoolean};

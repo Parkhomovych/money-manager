@@ -33,6 +33,9 @@ export const getStyles = (theme: ThemeColors) =>
       fontWeight: 'bold',
       color: theme.textPrimary,
     },
+    transactionsList: {
+      paddingHorizontal: 16,
+    },
     balanceCard: {
       backgroundColor: theme.primary,
       borderRadius: 16,
@@ -113,6 +116,7 @@ export const getStyles = (theme: ThemeColors) =>
       paddingHorizontal: 16,
     },
     sectionTitle: {
+      textAlign: 'center',
       fontSize: 20,
       fontWeight: 'bold',
       color: theme.textPrimary,

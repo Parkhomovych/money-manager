@@ -11,17 +11,19 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import authReducer from './AuthSlice';
+import authReducer from './AuthSlice/slice';
+import transactionReducer from './TransactionSlice/slice';
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['auth'],
+  whitelist: ['auth', 'transaction'],
   blacklist: [],
 };
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  transaction: transactionReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -40,6 +42,5 @@ export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

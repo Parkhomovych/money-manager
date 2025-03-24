@@ -1,0 +1,32 @@
+import {createSlice} from '@reduxjs/toolkit';
+
+import type {AuthState} from './types';
+import {reducers} from './reducers';
+import {extraReducers} from './extraReducers';
+
+const initialState: AuthState = {
+  user: null,
+
+  loading: false,
+  settings: {
+    darkMode: false,
+    notifications: true,
+    currency: 'USD',
+  },
+};
+
+const authSlice = createSlice({
+  name: 'auth',
+  initialState,
+  reducers,
+  extraReducers,
+  selectors: {
+    selectUser: (state: AuthState) => state.user,
+    selectAuthLoading: (state: AuthState) => state.loading,
+    selectUserSettings: (state: AuthState) => state.settings,
+  },
+});
+
+export const {clearError, updateUserSettings, toggleTheme} = authSlice.actions;
+export const {selectAuthLoading, selectUser, selectUserSettings} = authSlice.selectors;
+export default authSlice.reducer;

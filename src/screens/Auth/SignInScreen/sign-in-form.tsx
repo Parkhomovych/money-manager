@@ -13,7 +13,7 @@ export const SignInForm = () => {
   const {theme} = useTheme();
   const styles = getStyles(theme);
   const {form, onSubmit} = useSignIn();
-  const [showPassword, showPasswordToggle] = useBoolean(false);
+  const [showPassword, {toggle: showPasswordToggle}] = useBoolean(false);
 
   return (
     <View style={styles.form}>

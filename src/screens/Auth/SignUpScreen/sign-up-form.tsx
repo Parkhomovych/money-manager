@@ -14,8 +14,8 @@ export const SignUpForm = () => {
   const {theme} = useTheme();
   const styles = getStyles(theme);
   const {form, onSubmit} = useSignUp();
-  const [showPassword, showPasswordToggle] = useBoolean(false);
-  const [showConfirmPassword, showConfirmPasswordToggle] = useBoolean(false);
+  const [showPassword, {toggle: showPasswordToggle}] = useBoolean(false);
+  const [showConfirmPassword, {toggle: showConfirmPasswordToggle}] = useBoolean(false);
 
   return (
     <View style={styles.form}>

@@ -1,14 +1,16 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, SafeAreaView} from 'react-native';
+import {View, Text, TouchableOpacity, SafeAreaView, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useTheme} from '../../../theme/use-theme';
 import {useHome} from './use-home';
+import {Transaction} from '../../../store/TransactionSlice/types';
+import {EmptyHistory, ModalTransaction, TransactionItem} from './components';
 import {getStyles} from './styles';
 
-const HomeScreen = () => {
+export const Home = () => {
   const {theme} = useTheme();
   const styles = getStyles(theme);
-  const {balance, handleAddExpense, handleAddIncome, goToSettings} = useHome();
+  const {balance, transactions, deleteTransactionHandler, goToSettings, modal} = useHome();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -19,20 +21,20 @@ const HomeScreen = () => {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.balanceCard}>
+      <TouchableOpacity style={styles.balanceCard} onPress={modal.balance}>
         <View style={styles.balanceCardBackground} />
         <Text style={styles.balanceTitle}>Total Balance</Text>
-        <Text style={styles.balanceAmount}>₴{balance.toLocaleString()}</Text>
-      </View>
+        <Text style={styles.balanceAmount}>₴{balance}</Text>
+      </TouchableOpacity>
 
       <View style={styles.quickActions}>
-        <TouchableOpacity style={styles.actionButton} onPress={handleAddExpense}>
+        <TouchableOpacity style={styles.actionButton} onPress={modal.income}>
           <View style={styles.actionIconContainer}>
-            <Icon name="minus-circle" size={28} color={theme.primaryDark} />
+            <Icon name="plus-circle" size={28} color={theme.primary} />
           </View>
           <Text style={styles.actionText}>Expenses</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.actionButton} onPress={handleAddIncome}>
+        <TouchableOpacity style={styles.actionButton} onPress={modal.income}>
           <View style={styles.actionIconContainer}>
             <Icon name="plus-circle" size={28} color={theme.primary} />
           </View>
@@ -42,15 +44,32 @@ const HomeScreen = () => {
 
       <View style={styles.recentTransactions}>
         <Text style={styles.sectionTitle}>Recent Transactions</Text>
-        <View style={styles.emptyTransactions}>
-          <Icon name="history" size={48} color={theme.textSecondary} />
-          <Text style={styles.emptyTransactionsText}>
-            No transactions yet{'\n'}Add your first transaction
-          </Text>
-        </View>
+        {transactions.length === 0 ? (
+          <EmptyHistory />
+        ) : (
+          <FlatList<Transaction>
+            data={transactions}
+            renderItem={({item}) => (
+              <TransactionItem
+                transaction={item}
+                onDelete={() => deleteTransactionHandler(item.id)}
+              />
+            )}
+            keyExtractor={item => item.id}
+            contentContainerStyle={styles.transactionsList}
+            showsVerticalScrollIndicator={false}
+          />
+        )}
       </View>
+
+      <ModalTransaction
+        visible={modal.isVisible}
+        onClose={modal.closeModal}
+        onSubmit={modal.submit}
+        type={modal.type}
+      />
     </SafeAreaView>
   );
 };
 
-export default HomeScreen;
+export default Home;

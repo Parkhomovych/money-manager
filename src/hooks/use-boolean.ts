@@ -1,7 +1,7 @@
 import {useState} from 'react';
 
 /**
- * @returns [value, toggle, setTrue, setFalse]
+ * @returns [value, {toggle, setTrue, setFalse}]
  */
 export const useBoolean = (initialValue: boolean) => {
   const [value, setValue] = useState(initialValue);
@@ -10,5 +10,5 @@ export const useBoolean = (initialValue: boolean) => {
   const setTrue = () => setValue(true);
   const setFalse = () => setValue(false);
 
-  return [value, toggle, setTrue, setFalse] as const;
+  return [value, {toggle, setTrue, setFalse}] as const;
 };

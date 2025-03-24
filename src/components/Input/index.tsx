@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, TextInput, TextInputProps, ViewStyle, StyleProp} from 'react-native';
 import {useTheme} from '../../theme/use-theme';
 import {getStyles} from './styles';
+import {useBoolean} from '../../hooks';
 
 interface Props extends TextInputProps {
   label?: string;
@@ -24,7 +25,7 @@ export const Input = ({
 }: Props) => {
   const {theme} = useTheme();
   const styles = getStyles(theme);
-  const [isFocused, setIsFocused] = useState(false);
+  const [isFocused, {setTrue, setFalse}] = useBoolean(false);
 
   const inputContainerStyle = [
     styles.inputContainer,
@@ -40,8 +41,8 @@ export const Input = ({
         <TextInput
           style={[styles.input, style]}
           placeholderTextColor={theme.placeholder}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
+          onFocus={setTrue}
+          onBlur={setFalse}
           {...props}
         />
         {rightIcon ? <View style={styles.rightIcon}>{rightIcon}</View> : null}

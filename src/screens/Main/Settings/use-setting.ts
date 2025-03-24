@@ -6,15 +6,16 @@ import {
   updatePassword,
   useAppDispatch,
   useAppSelector,
-  authActions,
-  authSelectors,
+  selectUserSettings,
+  selectUser,
+  updateUserSettings,
 } from '../../../store';
 
 export const useSettings = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<NavigationProps['Root']>();
-  const settings = useAppSelector(authSelectors.selectUserSettings);
-  const user = useAppSelector(authSelectors.selectUser);
+  const settings = useAppSelector(selectUserSettings);
+  const user = useAppSelector(selectUser);
 
   const handleLogout = async () => {
     try {
@@ -26,7 +27,7 @@ export const useSettings = () => {
   };
 
   const handleUpdateSettings = (newSettings: typeof settings) => {
-    dispatch(authActions.updateUserSettings(newSettings));
+    dispatch(updateUserSettings(newSettings));
   };
 
   const handleUpdateProfile = async (displayName?: string, photoURL?: string) => {

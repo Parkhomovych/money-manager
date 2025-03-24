@@ -13,29 +13,15 @@ export default function MainStack() {
     <Stack.Navigator
       initialRouteName="Home"
       screenOptions={{
-        headerStyle: {
-          backgroundColor: theme.surface,
-        },
-        headerShadowVisible: true,
-        headerTitleStyle: {
-          color: theme.textPrimary,
-        },
+        headerStyle: {backgroundColor: theme.surface},
+        headerTitleStyle: {color: theme.textPrimary},
         headerTintColor: theme.primary,
       }}>
-      <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
+      <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false}} />
       <Stack.Screen
         name="Settings"
         component={SettingsScreen}
-        options={{
-          title: 'Settings',
-          headerBackTitle: 'Home',
-        }}
+        options={{title: 'Settings', headerBackTitle: 'Home'}}
       />
     </Stack.Navigator>
   );
