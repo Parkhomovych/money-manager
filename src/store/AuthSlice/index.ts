@@ -6,12 +6,12 @@ import {extraReducers} from './extraReducers';
 
 const initialState: AuthState = {
   user: null,
+
   loading: false,
   settings: {
     darkMode: false,
     notifications: true,
     currency: 'USD',
-    language: 'en',
   },
 };
 

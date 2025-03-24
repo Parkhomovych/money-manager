@@ -1,26 +1,53 @@
-import React from 'react';
-import {View, TextInput, Text, TextInputProps} from 'react-native';
-import {styles} from './styles';
+import React, {useState} from 'react';
+import {View, Text, TextInput, TextInputProps, ViewStyle, StyleProp} from 'react-native';
+import {useTheme} from '../../theme/use-theme';
+import {getStyles} from './styles';
 
-interface InputProps extends TextInputProps {
+interface Props extends TextInputProps {
   label?: string;
   error?: string;
+  helper?: string;
+  leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
+  containerStyle?: StyleProp<ViewStyle>;
 }
 
-export const Input = ({label, error, style, rightIcon, ...props}: InputProps) => {
+export const Input = ({
+  label,
+  error,
+  helper,
+  leftIcon,
+  rightIcon,
+  style,
+  containerStyle,
+  ...props
+}: Props) => {
+  const {theme} = useTheme();
+  const styles = getStyles(theme);
+  const [isFocused, setIsFocused] = useState(false);
+
+  const inputContainerStyle = [
+    styles.inputContainer,
+    isFocused && styles.inputContainerFocused,
+    error && styles.inputContainerError,
+  ];
+
   return (
-    <View style={styles.container}>
-      {label && <Text style={styles.label}>{label}</Text>}
-      <View style={styles.inputContainer}>
+    <View style={[styles.container, containerStyle]}>
+      {label ? <Text style={styles.label}>{label}</Text> : null}
+      <View style={inputContainerStyle}>
+        {leftIcon ? <View style={styles.icon}>{leftIcon}</View> : null}
         <TextInput
-          style={[styles.input, error && styles.inputError, style]}
-          placeholderTextColor={styles.placeholder.color}
+          style={[styles.input, style]}
+          placeholderTextColor={theme.placeholder}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
           {...props}
         />
-        {rightIcon && <View style={styles.rightIcon}>{rightIcon}</View>}
+        {rightIcon ? <View style={styles.rightIcon}>{rightIcon}</View> : null}
       </View>
-      {error && <Text style={styles.error}>{error}</Text>}
+      {error ? <Text style={styles.error}>{error}</Text> : null}
+      {helper && !error ? <Text style={styles.helper}>{helper}</Text> : null}
     </View>
   );
 };

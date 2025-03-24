@@ -1,60 +1,120 @@
 import {StyleSheet} from 'react-native';
-import {theme} from '../../../theme';
+import {ThemeColors} from '../../../theme/colors';
 
-export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.colors.background,
-  },
-  content: {
-    flex: 1,
-    padding: theme.spacing.md,
-    justifyContent: 'center',
-  },
-  header: {
-    alignItems: 'center',
-    marginBottom: theme.spacing.xl,
-  },
-  title: {
-    fontSize: theme.typography.sizes.xxl,
-    fontWeight: theme.typography.weights.bold,
-    color: theme.colors.textPrimary,
-    marginBottom: theme.spacing.sm,
-  },
-  subtitle: {
-    fontSize: theme.typography.sizes.md,
-    color: theme.colors.textSecondary,
-    textAlign: 'center',
-  },
-  form: {
-    gap: theme.spacing.md,
-  },
-  footer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: theme.spacing.xs,
-    marginTop: theme.spacing.xl,
-  },
-  footerText: {
-    fontSize: theme.typography.sizes.sm,
-    fontFamily: theme.typography.fonts.regular,
-    color: theme.colors.textSecondary,
-  },
-  link: {
-    fontSize: theme.typography.sizes.sm,
-    fontFamily: theme.typography.fonts.medium,
-    color: theme.colors.primary,
-  },
-  error: {
-    fontSize: theme.typography.sizes.sm,
-    fontFamily: theme.typography.fonts.regular,
-    color: theme.colors.error,
-    textAlign: 'center',
-    marginTop: theme.spacing.xs,
-  },
-  eyeIcon: {
-    fontSize: theme.typography.sizes.xxl,
-    color: theme.colors.textSecondary,
-  },
-});
+export const getStyles = (theme: ThemeColors) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: theme.background,
+      padding: 24,
+      justifyContent: 'center',
+    },
+    header: {
+      marginTop: 40,
+      marginBottom: 32,
+      alignItems: 'center',
+    },
+    logo: {
+      width: 120,
+      height: 120,
+      marginBottom: 24,
+    },
+    title: {
+      fontSize: 32,
+      fontWeight: 'bold',
+      color: theme.textPrimary,
+      marginBottom: 8,
+      textAlign: 'center',
+    },
+    subtitle: {
+      fontSize: 16,
+      color: theme.textSecondary,
+      textAlign: 'center',
+      marginBottom: 32,
+    },
+    form: {
+      marginBottom: 24,
+    },
+    inputContainer: {
+      marginBottom: 16,
+    },
+    inputLabel: {
+      fontSize: 14,
+      color: theme.textSecondary,
+      marginBottom: 8,
+    },
+    input: {
+      backgroundColor: theme.input,
+      borderRadius: 12,
+      padding: 16,
+      color: theme.textPrimary,
+      fontSize: 16,
+      borderWidth: 1,
+      borderColor: theme.border,
+    },
+    inputFocused: {
+      borderColor: theme.primary,
+      borderWidth: 2,
+    },
+    forgotPassword: {
+      alignSelf: 'flex-end',
+      marginBottom: 24,
+    },
+    forgotPasswordText: {
+      color: theme.primary,
+      fontSize: 14,
+    },
+    button: {
+      backgroundColor: theme.primary,
+      borderRadius: 12,
+      padding: 16,
+      alignItems: 'center',
+      shadowColor: theme.shadow,
+      shadowOffset: {
+        width: 0,
+        height: 4,
+      },
+      shadowOpacity: 0.2,
+      shadowRadius: 4,
+      elevation: 5,
+    },
+    buttonText: {
+      color: theme.textOnPrimary,
+      fontSize: 16,
+      fontWeight: '600',
+    },
+    footer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      marginTop: 24,
+    },
+    footerText: {
+      color: theme.textSecondary,
+      fontSize: 14,
+    },
+    signUpLink: {
+      marginLeft: 4,
+    },
+    signUpText: {
+      color: theme.primary,
+      fontSize: 14,
+      fontWeight: '600',
+    },
+    errorContainer: {
+      marginBottom: 16,
+      backgroundColor: theme.errorLight,
+      flexDirection: 'row',
+      gap: 8,
+      alignItems: 'center',
+      borderRadius: 12,
+      padding: 8,
+    },
+    errorText: {
+      textAlign: 'center',
+      color: theme.error,
+      fontSize: 16,
+    },
+    errorIcon: {
+      fontSize: 24,
+    },
+  });

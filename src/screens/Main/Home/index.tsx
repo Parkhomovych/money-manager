@@ -1,19 +1,21 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
+import {View, Text, TouchableOpacity, SafeAreaView} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {COLORS} from '../../../theme/colors';
+import {useTheme} from '../../../theme/use-theme';
 import {useHome} from './use-home';
-import {styles} from './styles';
+import {getStyles} from './styles';
 
 const HomeScreen = () => {
+  const {theme} = useTheme();
+  const styles = getStyles(theme);
   const {balance, handleAddExpense, handleAddIncome, goToSettings} = useHome();
 
   return (
-    <ScrollView style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <View />
         <TouchableOpacity style={styles.settingsButton} onPress={goToSettings}>
-          <Icon name="cog" size={24} color={COLORS.primary} />
+          <Icon name="cog" size={24} color={theme.primary} />
         </TouchableOpacity>
       </View>
 
@@ -26,13 +28,13 @@ const HomeScreen = () => {
       <View style={styles.quickActions}>
         <TouchableOpacity style={styles.actionButton} onPress={handleAddExpense}>
           <View style={styles.actionIconContainer}>
-            <Icon name="minus-circle" size={28} color={COLORS.primaryDark} />
+            <Icon name="minus-circle" size={28} color={theme.primaryDark} />
           </View>
           <Text style={styles.actionText}>Expenses</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.actionButton} onPress={handleAddIncome}>
           <View style={styles.actionIconContainer}>
-            <Icon name="plus-circle" size={28} color={COLORS.primary} />
+            <Icon name="plus-circle" size={28} color={theme.primary} />
           </View>
           <Text style={styles.actionText}>Income</Text>
         </TouchableOpacity>
@@ -41,13 +43,13 @@ const HomeScreen = () => {
       <View style={styles.recentTransactions}>
         <Text style={styles.sectionTitle}>Recent Transactions</Text>
         <View style={styles.emptyTransactions}>
-          <Icon name="history" size={48} color={COLORS.textSecondary} />
+          <Icon name="history" size={48} color={theme.textSecondary} />
           <Text style={styles.emptyTransactionsText}>
             No transactions yet{'\n'}Add your first transaction
           </Text>
         </View>
       </View>
-    </ScrollView>
+    </SafeAreaView>
   );
 };
 

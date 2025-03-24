@@ -6,13 +6,15 @@ export const reducers = {
     state.loading = false;
     state.user = null;
     state.settings = {
-      darkMode: false,
-      notifications: true,
+      darkMode: state.settings.darkMode,
+      notifications: state.settings.notifications,
       currency: 'USD',
-      language: 'en',
     };
   },
   updateUserSettings: (state: AuthState, action: PayloadAction<UpdateUserSettingsPayload>) => {
     state.settings = {...state.settings, ...action.payload};
+  },
+  toggleTheme: (state: AuthState) => {
+    state.settings.darkMode = !state.settings.darkMode;
   },
 };

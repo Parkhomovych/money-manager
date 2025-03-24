@@ -1,29 +1,50 @@
 export const COLORS = {
-  // Основні кольори
-  primary: '#2ECC71', // Яскраво-зелений (як на іконці)
-  secondary: '#E8F8F1', // Світло-зелений фон (як на іконці)
+  light: {
+    primary: '#2ECC71',
+    primaryDark: '#27AE60',
+    primaryLight: '#A1F4C0',
+    secondary: '#E8F8F1',
+    background: '#F0FFF7',
+    surface: '#FFFFFF',
+    card: '#FFFFFF',
+    textPrimary: '#2C3E50',
+    textSecondary: '#95A5A6',
+    textOnPrimary: '#FFFFFF',
+    border: '#E8F3EE',
+    error: '#E74C3C',
+    errorLight: '#FFE0E0',
+    success: '#2ECC71',
+    warning: '#F1C40F',
+    overlay: 'rgba(46, 204, 113, 0.1)',
+    input: '#FFFFFF',
+    placeholder: '#95A5A6',
+    shadow: 'rgba(46, 204, 113, 0.15)',
+    gradient: ['#2ECC71', '#A1F4C0'],
+  },
+  dark: {
+    primary: '#2ECC71',
+    primaryDark: '#27AE60',
+    primaryLight: '#1B5E20',
+    secondary: '#1A332B',
+    background: '#0A1F16',
+    surface: '#122920',
+    card: '#1A332B',
+    textPrimary: '#FFFFFF',
+    textSecondary: '#B0B0B0',
+    textOnPrimary: '#FFFFFF',
+    border: '#2C4C40',
+    error: '#E74C3C',
+    errorLight: '#FFE0E0',
+    success: '#2ECC71',
+    warning: '#F1C40F',
+    overlay: 'rgba(46, 204, 113, 0.05)',
+    input: '#0F261C',
+    placeholder: '#4D6357',
+    shadow: 'rgba(0, 0, 0, 0.3)',
+    gradient: ['#27AE60', '#2ECC71'],
+  },
+} as const;
 
-  // Відтінки зеленого для різних станів та елементів
-  primaryDark: '#27AE60', // Темніший зелений для hover/active станів
-  primaryLight: '#A1F4C0', // Світліший зелений для другорядних елементів
-
-  // Допоміжні кольори
-  background: '#FFFFFF', // Білий фон
-  surface: '#F9FEFC', // Ледь зеленуватий фон для карток
-
-  // Текст
-  textPrimary: '#2C3E50', // Основний текст
-  textSecondary: '#95A5A6', // Другорядний текст
-  textOnPrimary: '#FFFFFF', // Текст на зеленому фоні
-
-  // Статуси
-  success: '#2ECC71', // Успіх (той самий зелений)
-  error: '#E74C3C', // Помилка (червоний)
-  warning: '#F1C40F', // Попередження (жовтий)
-
-  // Розділювачі
-  border: '#E8F3EE', // Рамки та розділювачі
-
-  // Прозорості
-  overlay: 'rgba(46, 204, 113, 0.1)', // Прозорий зелений для оверлеїв
-};
+export type LightTheme = typeof COLORS.light;
+export type DarkTheme = typeof COLORS.dark;
+export type ThemeColors = LightTheme | DarkTheme;

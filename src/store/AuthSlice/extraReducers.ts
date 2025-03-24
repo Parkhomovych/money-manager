@@ -9,26 +9,21 @@ export const extraReducers = (builder: ActionReducerMapBuilder<AuthState>) => {
       state.loading = true;
     })
     .addCase(signUp.fulfilled, (state, action) => {
-      console.log('signUp.fulfilled', action);
       state.loading = false;
       state.user = action.payload.user;
     })
-    .addCase(signUp.rejected, (state, action) => {
-      console.log('signUp.rejected', action);
+    .addCase(signUp.rejected, state => {
       state.loading = false;
     })
     // Sign In
     .addCase(signIn.pending, state => {
-      console.log('signIn.pending');
       state.loading = true;
     })
     .addCase(signIn.fulfilled, (state, action) => {
-      console.log('signIn.fulfilled', action);
       state.loading = false;
       state.user = action.payload.user;
     })
-    .addCase(signIn.rejected, (state, action) => {
-      console.log('signIn.rejected', action);
+    .addCase(signIn.rejected, state => {
       state.loading = false;
     })
     // Sign Out
@@ -36,11 +31,9 @@ export const extraReducers = (builder: ActionReducerMapBuilder<AuthState>) => {
       state.loading = false;
       state.user = null;
       state.settings = {
-        darkMode: false,
-        notifications: true,
-        currency: 'USD',
-        language: 'en',
+        darkMode: state.settings.darkMode,
+        notifications: state.settings.notifications,
+        currency: state.settings.currency,
       };
-      console.log('signOut.fulfilled', state);
     });
 };

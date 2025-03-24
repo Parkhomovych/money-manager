@@ -5,7 +5,6 @@ export interface AuthState {
     darkMode: boolean;
     notifications: boolean;
     currency: string;
-    language: string;
   };
 }
 

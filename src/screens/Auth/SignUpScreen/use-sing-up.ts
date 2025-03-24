@@ -1,11 +1,7 @@
-import {useForm} from 'react-hook-form';
 import {z} from 'zod';
+import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {signUp, useAppDispatch} from '../../../store';
-// import {useEffect} from 'react';
-
-// vlad@gmail.com
-// vla1d@gmail.com
 
 const signUpSchema = z
   .object({
@@ -32,20 +28,12 @@ export const useSignUp = () => {
   const onSubmit = async (data: SignUpFormData) => {
     console.log(data);
     try {
-      await dispatch(signUp(data));
+      await dispatch(signUp(data)).unwrap();
     } catch (err) {
       console.log('error submit sign up', err);
       form.setError('root', {message: err as string});
     }
   };
-
-  // useEffect(() => {
-  //   if (!signUpError) return;
-
-  //   setTimeout(() => {
-  //     dispatch(actions.clearError());
-  //   }, 5000);
-  // }, [signUpError, dispatch]);
 
   return {form, onSubmit};
 };

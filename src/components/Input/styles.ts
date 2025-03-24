@@ -1,46 +1,52 @@
 import {StyleSheet} from 'react-native';
-import {theme} from '../../theme';
+import {ThemeColors} from '../../theme/colors';
 
-export const styles = StyleSheet.create({
-  container: {
-    marginBottom: theme.spacing.md,
-  },
-  label: {
-    fontSize: theme.typography.sizes.sm,
-    color: theme.colors.textPrimary,
-    marginBottom: theme.spacing.xs,
-  },
-  input: {
-    height: theme.layout.inputHeight,
-    backgroundColor: theme.colors.background,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: theme.radius.md,
-    paddingHorizontal: theme.spacing.md,
-    fontSize: theme.typography.sizes.md,
-    color: theme.colors.textPrimary,
-  },
-
-  placeholder: {
-    color: theme.colors.textSecondary,
-  },
-  inputError: {
-    borderColor: theme.colors.error,
-  },
-  error: {
-    fontSize: theme.typography.sizes.sm,
-    color: theme.colors.error,
-    marginTop: theme.spacing.xs,
-  },
-  inputContainer: {
-    position: 'relative',
-  },
-  rightIcon: {
-    position: 'absolute',
-    right: 12,
-    top: '50%',
-    transform: [{translateY: '-50%'}],
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
+export const getStyles = (theme: ThemeColors) =>
+  StyleSheet.create({
+    container: {
+      marginBottom: 16,
+    },
+    label: {
+      fontSize: 14,
+      color: theme.textSecondary,
+      marginBottom: 8,
+    },
+    inputContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: theme.input,
+      borderRadius: 12,
+      borderWidth: 1,
+      borderColor: theme.border,
+      paddingHorizontal: 16,
+    },
+    inputContainerFocused: {
+      borderColor: theme.primary,
+      borderWidth: 2,
+    },
+    inputContainerError: {
+      borderColor: theme.error,
+    },
+    input: {
+      flex: 1,
+      height: 48,
+      color: theme.textPrimary,
+      fontSize: 16,
+    },
+    icon: {
+      marginRight: 12,
+    },
+    rightIcon: {
+      marginLeft: 12,
+    },
+    error: {
+      color: theme.error,
+      fontSize: 12,
+      marginTop: 4,
+    },
+    helper: {
+      color: theme.textSecondary,
+      fontSize: 12,
+      marginTop: 4,
+    },
+  });

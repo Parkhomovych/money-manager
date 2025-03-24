@@ -28,4 +28,4 @@ export const useSignIn = () => {
   return {form, onSubmit};
 };
 
-//vlad@gmail.com
+// vlad@gmail.com

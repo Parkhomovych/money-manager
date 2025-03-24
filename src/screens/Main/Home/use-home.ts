@@ -5,13 +5,9 @@ export const useHome = () => {
   const navigation = useNavigation<NavigationProps['Main']>();
   const balance = 5000;
 
-  const handleAddExpense = () => {
-    // TODO: Add expense logic
-  };
+  const handleAddExpense = () => {};
 
-  const handleAddIncome = () => {
-    // TODO: Add income logic
-  };
+  const handleAddIncome = () => {};
 
   const goToSettings = () => {
     navigation.navigate('Settings');
