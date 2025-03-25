@@ -1,5 +1,6 @@
-import {EmptyHistory} from './empty-history';
-import {TransactionItem} from './transaction-item';
-import {ModalTransaction} from './modal-transaction';
+import {ModalTransaction} from './ModalTransaction';
+import {BalanceCard} from './BalanceCard';
+import {ActionsButton} from './ActionsButton';
+import {History} from './History';
 
-export {EmptyHistory, TransactionItem, ModalTransaction};
+export {ModalTransaction, BalanceCard, ActionsButton, History};

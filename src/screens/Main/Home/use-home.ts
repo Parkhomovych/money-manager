@@ -10,6 +10,7 @@ import {
   selectBalance,
   addTransaction,
   deleteTransaction,
+  Categories,
 } from '../../../store';
 
 import {useBoolean} from '../../../hooks';
@@ -48,7 +49,11 @@ export const useHome = () => {
     navigation.navigate('Settings' as never);
   }, [navigation]);
 
-  const handleAddTransaction = (data: {amount: number; description: string; category: string}) => {
+  const handleAddTransaction = (data: {
+    amount: number;
+    description: string;
+    category: Categories;
+  }) => {
     const now = moment().toISOString();
     addTransactionHandler({
       ...data,

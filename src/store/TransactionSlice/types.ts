@@ -10,7 +10,7 @@ export interface Transaction {
   type: TransactionType;
   amount: number;
   description: string;
-  category: string;
+  category: Categories;
   date: string;
   createdAt: string;
   updatedAt: string;
@@ -27,7 +27,7 @@ export interface AddTransactionPayload {
   type: TransactionType;
   amount: number;
   description: string;
-  category: string;
+  category: Categories;
 }
 
 export interface UpdateBalancePayload {
@@ -42,3 +42,7 @@ export interface FetchTransactionsResponse {
   transactions: Transaction[];
   balance: number;
 }
+
+export type Categories = CategoriesFood | CategoriesIncome;
+type CategoriesIncome = 'salary' | 'bonus' | 'gift' | 'other';
+type CategoriesFood = 'food' | 'transportation' | 'entertainment' | 'shopping' | 'other';

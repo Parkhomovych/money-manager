@@ -2,7 +2,7 @@ export const FONTS = {
   regular: 'System',
   medium: 'System',
   bold: 'System',
-};
+} as const;
 
 export const FONT_SIZES = {
   xs: 12,
@@ -12,7 +12,7 @@ export const FONT_SIZES = {
   xl: 20,
   xxl: 24,
   xxxl: 32,
-};
+} as const;
 
 export const FONT_WEIGHTS = {
   regular: '400',
@@ -29,4 +29,4 @@ export const LINE_HEIGHTS = {
   xl: 32,
   xxl: 36,
   xxxl: 40,
-};
+} as const;
