@@ -45,8 +45,8 @@ export const isDisabledButton = (
     case TransactionType.ADD_BALANCE:
       return !!amount;
     case TransactionType.INCOME:
-      return !!amount && !!description && !!category;
+      return !!amount && !!category;
     case TransactionType.EXPENSE:
-      return !!amount && !!description && !!category;
+      return !!amount && !!category;
   }
 };

@@ -94,7 +94,7 @@ export const fetchTransactions = createAsyncThunk<
   Transaction[],
   void,
   {state: RootState; rejectValue: string}
->('transaction/fetchTransactions', async (_, {rejectWithValue, getState}) => {
+>('transaction/fetchTransactions', async (_, {rejectWithValue, getState, dispatch}) => {
   try {
     const user = getState().auth.user;
     if (!user) throw new Error('User not found');
@@ -104,12 +104,16 @@ export const fetchTransactions = createAsyncThunk<
       .where('userId', '==', user.uid)
       .get();
 
+    const balance = await firestore().collection(COLLECTION_BALANCE).doc(user.uid).get();
+    dispatch(updateBalance(balance.data()?.amount || 0));
+
     const transactionsData = transactions.docs.map(doc => {
       return {
         id: doc.id,
         ...doc.data(),
       } as Transaction;
     });
+
     console.log('transactionsData', transactionsData);
     return transactionsData;
   } catch (error) {

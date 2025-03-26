@@ -1,7 +1,7 @@
 import {CurrencyValue} from '../store';
 
 export const exchangeCurrency = (type: CurrencyValue, rate: number, value: number): string => {
-  if (!rate || !value || !type) return '0!';
+  if (!rate || !value || !type) return '0';
 
   switch (type) {
     case 'USD':

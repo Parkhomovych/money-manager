@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {
   useAppDispatch,
   TransactionType,
@@ -14,9 +14,10 @@ import {
 } from '../../../store';
 
 import {useBoolean} from '../../../hooks';
+import {NavigationProps} from '../../../types';
 
 export const useHome = () => {
-  const navigation = useNavigation<NavigationProp<any>>();
+  const navigation = useNavigation<NavigationProps['Main']>();
   const dispatch = useAppDispatch();
 
   const transactions = useAppSelector(selectTransactions);
