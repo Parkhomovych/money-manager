@@ -3,6 +3,9 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import moment from 'moment';
 import {useTheme} from '../../../../../theme/use-theme';
+import {useAppSelector} from '../../../../../store';
+import {selectCurrency} from '../../../../../store/AuthSlice/slice';
+import {exchangeCurrency} from '../../../../../utils';
 import {Transaction, TransactionType} from '../../../../../store';
 import {getStyles} from './styles';
 interface TransactionItemProps {
@@ -14,7 +17,8 @@ export const TransactionItem = ({transaction, onDelete}: TransactionItemProps) =
   const {theme} = useTheme();
   const styles = getStyles(theme);
   const isIncome = transaction.type === TransactionType.INCOME;
-
+  const currency = useAppSelector(selectCurrency);
+  const selectedCurrency = currency.find(i => i.selected) || currency[0];
   return (
     <View style={styles.container}>
       <View style={styles.iconContainer}>
@@ -29,7 +33,9 @@ export const TransactionItem = ({transaction, onDelete}: TransactionItemProps) =
         <View style={styles.header}>
           <Text style={styles.description}>{transaction.description}</Text>
           <Text style={[styles.amount, isIncome ? styles.income : styles.expense]}>
-            {isIncome ? '+' : '-'}₴{transaction.amount.toLocaleString()}
+            {isIncome ? '+' : '-'}
+            {selectedCurrency.symbol}
+            {exchangeCurrency(selectedCurrency.value, selectedCurrency.rate, transaction.amount)}
           </Text>
         </View>
 

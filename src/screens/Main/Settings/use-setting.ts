@@ -2,21 +2,32 @@ import {useNavigation} from '@react-navigation/native';
 import {NavigationProps} from '../../../types';
 import {
   signOut,
-  updateProfile,
-  updatePassword,
   useAppDispatch,
   useAppSelector,
   selectUserSettings,
   selectUser,
-  updateUserSettings,
+  CurrencyValue,
+  setCurrencySelected,
+  toggleTheme,
 } from '../../../store';
+import {useBoolean} from '../../../hooks';
 
 export const useSettings = () => {
-  const dispatch = useAppDispatch();
+  const [isModalVisible, {setTrue, setFalse}] = useBoolean(false);
   const navigation = useNavigation<NavigationProps['Root']>();
-  const settings = useAppSelector(selectUserSettings);
+  const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
+  const settings = useAppSelector(selectUserSettings);
+  const selectedCurrency =
+    settings.currency?.find(currency => currency.selected) || settings.currency[0];
 
+  const handleUpdateCurrency = (currency: CurrencyValue) => {
+    dispatch(setCurrencySelected(currency));
+  };
+
+  const handleTheme = () => {
+    dispatch(toggleTheme());
+  };
   const handleLogout = async () => {
     try {
       await dispatch(signOut());
@@ -26,34 +37,15 @@ export const useSettings = () => {
     }
   };
 
-  const handleUpdateSettings = (newSettings: typeof settings) => {
-    dispatch(updateUserSettings(newSettings));
-  };
-
-  const handleUpdateProfile = async (displayName?: string, photoURL?: string) => {
-    try {
-      await dispatch(updateProfile({displayName, photoURL}));
-    } catch (error) {
-      console.error('Error updating profile:', error);
-      throw error;
-    }
-  };
-
-  const handleUpdatePassword = async (newPassword: string) => {
-    try {
-      await dispatch(updatePassword(newPassword));
-    } catch (error) {
-      console.error('Error updating password:', error);
-      throw error;
-    }
-  };
-
   return {
     user,
     settings,
+    selectedCurrency,
+    handleTheme,
+    handleUpdateCurrency,
     handleLogout,
-    handleUpdateSettings,
-    handleUpdateProfile,
-    handleUpdatePassword,
+    isModalVisible,
+    setTrue,
+    setFalse,
   };
 };

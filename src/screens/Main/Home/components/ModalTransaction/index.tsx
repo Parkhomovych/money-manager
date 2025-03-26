@@ -29,14 +29,13 @@ export const ModalTransaction = ({visible, onClose, onSubmit, type}: ModalTransa
   const styles = getStyles(theme);
 
   const {
-    amount,
     amountBind,
-    description,
     descriptionBind,
     category,
     categoryBind,
     isDisabled,
     handleSubmit,
+    handleClose,
   } = useModalTransaction(type, onSubmit, onClose);
 
   return (
@@ -44,11 +43,11 @@ export const ModalTransaction = ({visible, onClose, onSubmit, type}: ModalTransa
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}
-        onTouchStart={onClose}>
+        onTouchStart={handleClose}>
         <View style={styles.content} onTouchStart={e => e.stopPropagation()}>
           <View style={styles.header}>
             <Text style={styles.title}>{getTitle(type)}</Text>
-            <TouchableOpacity onPress={onClose}>
+            <TouchableOpacity onPress={handleClose}>
               <Icon name="close" size={24} color={theme.textSecondary} />
             </TouchableOpacity>
           </View>
@@ -80,9 +79,28 @@ export const ModalTransaction = ({visible, onClose, onSubmit, type}: ModalTransa
                 <View style={styles.inputContainer}>
                   <Text style={styles.label}>Category</Text>
                   <Dropdown
-                    dropdownStyle={styles.input}
-                    placeholderStyle={{color: theme.placeholder}}
                     selectedValue={category}
+                    onValueChange={value => categoryBind.onChangeText(value as string)}
+                    options={getCategories(type)}
+                    placeholder="Select category"
+                    dropdownStyle={{
+                      ...styles.input,
+                      backgroundColor: theme.surface,
+                      borderColor: theme.border,
+                    }}
+                    placeholderStyle={{color: theme.textSecondary, fontSize: 16}}
+                    modalControls={{
+                      modalOptionsContainerStyle: {
+                        backgroundColor: theme.surface,
+                        borderTopLeftRadius: 24,
+                        borderTopRightRadius: 24,
+                      },
+                    }}
+                    checkboxControls={{
+                      checkboxStyle: {backgroundColor: theme.secondary, borderColor: theme.primary},
+                      checkboxLabelStyle: {color: theme.textPrimary, fontSize: 16},
+                    }}
+                    selectedItemStyle={{color: theme.textPrimary, fontSize: 16}}
                     dropdownIcon={
                       <Icon
                         name="chevron-down"
@@ -91,24 +109,14 @@ export const ModalTransaction = ({visible, onClose, onSubmit, type}: ModalTransa
                         color={theme.textSecondary}
                       />
                     }
-                    dropdownIconStyle={{}}
-                    selectedItemStyle={{color: theme.textPrimary, fontSize: 16}}
-                    placeholder="Select category"
-                    onValueChange={value => {
-                      categoryBind.onChangeText(value as string);
-                    }}
-                    options={getCategories(type)}
                   />
                 </View>
               </>
             )}
             <TouchableOpacity
-              style={[
-                styles.submitButton,
-                !amount || !description || !category ? styles.disabled : null,
-              ]}
+              style={[styles.submitButton, !isDisabled && styles.disabled]}
               onPress={handleSubmit}
-              disabled={isDisabled}>
+              disabled={!isDisabled}>
               <Text style={styles.submitButtonText}>Add Transaction</Text>
             </TouchableOpacity>
           </View>

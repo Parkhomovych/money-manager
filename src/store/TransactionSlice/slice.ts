@@ -5,7 +5,6 @@ import {extraReducers} from './extraReducers';
 
 const initialState: TransactionState = {
   transactions: [],
-  balance: 0,
   loading: false,
   error: null,
 };
@@ -17,13 +16,11 @@ const transactionSlice = createSlice({
   extraReducers,
   selectors: {
     selectTransactions: state => state.transactions,
-    selectBalance: state => state.balance,
     selectLoading: state => state.loading,
     selectError: state => state.error,
   },
 });
 
-export const {updateBalance, clearTransactions} = transactionSlice.actions;
-export const {selectTransactions, selectBalance, selectLoading, selectError} =
-  transactionSlice.selectors;
+export const {clearTransactions, setTransactions} = transactionSlice.actions;
+export const {selectTransactions, selectLoading, selectError} = transactionSlice.selectors;
 export default transactionSlice.reducer;

@@ -4,7 +4,7 @@ export interface AuthState {
   settings: {
     darkMode: boolean;
     notifications: boolean;
-    currency: string;
+    currency: Currency[];
   };
 }
 
@@ -23,14 +23,20 @@ export type User = {
   email: string | null;
   displayName: string | null;
   photoURL: string | null;
+  balance: number;
 };
 
-export interface UpdateUserSettingsPayload {
-  darkMode?: boolean;
-  notifications?: boolean;
-  currency?: string;
-  language?: string;
-}
+export type Currency = {
+  value: CurrencyValue;
+  symbol: CurrencySymbol;
+  rate: number;
+  selected: boolean;
+};
+export type CurrencyRateResponse = {
+  rates: {USD: number; EUR: number; GBP: number; UAH: number};
+};
+export type CurrencyValue = 'UAH' | 'USD' | 'EUR' | 'GBP';
+export type CurrencySymbol = '₴' | '$' | '€' | '£';
 
 export enum AuthErrorCodes {
   INVALID_CREDENTIALS = 'auth/invalid-credential',

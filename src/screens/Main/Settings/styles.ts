@@ -129,11 +129,56 @@ export const getStyles = (theme: ThemeColors) =>
       alignItems: 'center',
       marginRight: 12,
     },
+    currencyIcon: {
+      color: theme.primary,
+      fontSize: 20,
+    },
     version: {
       textAlign: 'center',
       fontSize: 12,
       color: theme.textSecondary,
       marginTop: 8,
       marginBottom: 16,
+    },
+    modalContainer: {
+      flex: 1,
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      justifyContent: 'flex-end',
+    },
+    modalContent: {
+      backgroundColor: theme.surface,
+      borderTopLeftRadius: 24,
+      borderTopRightRadius: 24,
+      padding: 24,
+      shadowColor: theme.shadow,
+      shadowOffset: {width: 0, height: -2},
+      shadowOpacity: 0.1,
+      shadowRadius: 3,
+      elevation: 5,
+    },
+    modalTitle: {
+      fontSize: 24,
+      fontWeight: '600',
+      color: theme.textPrimary,
+      marginBottom: 16,
+      textAlign: 'center',
+    },
+    modalItem: {
+      padding: 16,
+      borderBottomWidth: 1,
+      borderBottomColor: theme.border,
+    },
+    modalItemText: {
+      fontSize: 16,
+      color: theme.textPrimary,
+    },
+    selectedCurrency: {
+      color: theme.primary,
+      fontWeight: '600',
+    },
+    modalHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
     },
   });

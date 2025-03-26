@@ -4,11 +4,21 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useSettings} from './use-setting';
 import {getStyles} from './styles';
 import {useTheme} from '../../../theme/use-theme';
+import {CurrencyModal} from './currencyModal';
 
 const Settings = () => {
   const {theme} = useTheme();
   const styles = getStyles(theme);
-  const {settings, handleUpdateSettings, handleLogout} = useSettings();
+  const {
+    settings,
+    handleLogout,
+    handleTheme,
+    handleUpdateCurrency,
+    isModalVisible,
+    setTrue,
+    setFalse,
+    selectedCurrency,
+  } = useSettings();
 
   return (
     <View style={styles.container}>
@@ -21,11 +31,22 @@ const Settings = () => {
           <Text style={styles.settingLabel}>Dark Mode</Text>
           <Switch
             value={settings.darkMode}
-            onValueChange={value => handleUpdateSettings({...settings, darkMode: value})}
+            onValueChange={handleTheme}
             style={styles.switch}
             trackColor={{false: theme.border, true: theme.primary}}
             thumbColor={theme.surface}
           />
+        </View>
+        <View style={[styles.settingItem, styles.settingItemLast]}>
+          <View style={styles.icon}>
+            <Text style={styles.currencyIcon}>{selectedCurrency?.symbol}</Text>
+          </View>
+          <Text style={styles.settingLabel}>Currency</Text>
+
+          <TouchableOpacity style={styles.settingValue} onPress={setTrue}>
+            <Text style={styles.settingValueText}>{selectedCurrency?.value}</Text>
+            <Icon name="chevron-right" size={20} color={theme.textSecondary} />
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -38,21 +59,10 @@ const Settings = () => {
           <Text style={styles.settingLabel}>Notifications</Text>
           <Switch
             value={settings.notifications}
-            onValueChange={value => handleUpdateSettings({...settings, notifications: value})}
             style={styles.switch}
             trackColor={{false: theme.border, true: theme.primary}}
             thumbColor={theme.surface}
           />
-        </View>
-        <View style={[styles.settingItem, styles.settingItemLast]}>
-          <View style={styles.icon}>
-            <Icon name="currency-usd" size={20} color={theme.primary} />
-          </View>
-          <Text style={styles.settingLabel}>Currency</Text>
-          <View style={styles.settingValue}>
-            <Text style={styles.settingValueText}>{settings.currency}</Text>
-            <Icon name="chevron-right" size={20} color={theme.textSecondary} />
-          </View>
         </View>
       </View>
 
@@ -61,6 +71,12 @@ const Settings = () => {
       </TouchableOpacity>
 
       <Text style={styles.version}>Version 1.0.0</Text>
+      <CurrencyModal
+        isModalVisible={isModalVisible}
+        setFalse={setFalse}
+        handleUpdateCurrency={handleUpdateCurrency}
+        selectedCurrency={selectedCurrency?.value}
+      />
     </View>
   );
 };

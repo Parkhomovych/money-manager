@@ -18,7 +18,6 @@ export interface Transaction {
 
 export interface TransactionState {
   transactions: Transaction[];
-  balance: number;
   loading: boolean;
   error: string | null;
 }
@@ -41,6 +40,12 @@ export interface DeleteTransactionPayload {
 export interface FetchTransactionsResponse {
   transactions: Transaction[];
   balance: number;
+}
+export interface UpdateTransactionPayload {
+  id: string;
+  amount?: number;
+  description?: string;
+  category?: Categories;
 }
 
 export type Categories = CategoriesFood | CategoriesIncome;

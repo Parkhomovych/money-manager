@@ -3,13 +3,10 @@ import {ThemeColors} from '../../../../../theme/colors';
 
 export const getStyles = (theme: ThemeColors) =>
   StyleSheet.create({
-    transactionsList: {
-      paddingHorizontal: 16,
-    },
     recentTransactions: {
       backgroundColor: theme.surface,
       borderRadius: 16,
-      padding: 20,
+      padding: 16,
       margin: 16,
       flex: 1,
       shadowColor: theme.shadow,
@@ -18,26 +15,33 @@ export const getStyles = (theme: ThemeColors) =>
       shadowRadius: 3,
       elevation: 3,
     },
-    section: {
-      marginTop: 24,
-      paddingHorizontal: 16,
-    },
     sectionTitle: {
       textAlign: 'center',
       fontSize: 20,
       fontWeight: 'bold',
       color: theme.textPrimary,
-      marginBottom: 16,
+      marginVertical: 16,
     },
-    emptyTransactions: {
+    filterContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      borderBottomWidth: 1,
+      borderColor: theme.border,
+      paddingBottom: 16,
+    },
+    filterButton: {
+      flex: 1,
+      justifyContent: 'center',
       alignItems: 'center',
-      padding: 32,
+      paddingVertical: 8,
+      borderRadius: 24,
+      backgroundColor: theme.surface,
+      borderWidth: 1,
+      borderColor: theme.border,
+      marginHorizontal: 4,
     },
-    emptyTransactionsText: {
-      color: theme.textSecondary,
+    filterButtonText: {
+      color: theme.textPrimary,
       fontSize: 16,
-      textAlign: 'center',
-      marginTop: 12,
-      lineHeight: 24,
     },
   });

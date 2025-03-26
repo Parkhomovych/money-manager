@@ -43,10 +43,10 @@ export const isDisabledButton = (
 ) => {
   switch (type) {
     case TransactionType.ADD_BALANCE:
-      return !amount;
+      return !!amount;
     case TransactionType.INCOME:
-      return !amount || !description || !category;
+      return !!amount && !!description && !!category;
     case TransactionType.EXPENSE:
-      return !amount || !description || !category;
+      return !!amount && !!description && !!category;
   }
 };

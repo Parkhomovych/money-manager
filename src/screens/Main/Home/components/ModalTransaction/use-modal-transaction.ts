@@ -12,14 +12,17 @@ export const useModalTransaction = (
   const [category, categoryBind, clearCategory] = useInput<Categories | undefined>(undefined);
   const isDisabled = isDisabledButton(type, amount, description, category);
 
-  const handleSubmit = () => {
-    if (isDisabled || !category) return;
-
-    onSubmit({amount: parseFloat(amount), description, category});
+  const handleClose = () => {
     clearAmount();
     clearDescription();
     clearCategory();
     onClose();
+  };
+  const handleSubmit = () => {
+    if (!isDisabled) return;
+
+    onSubmit({amount: parseFloat(amount), description, category: category as Categories});
+    handleClose();
   };
   return {
     amount,
@@ -30,5 +33,6 @@ export const useModalTransaction = (
     categoryBind,
     isDisabled,
     handleSubmit,
+    handleClose,
   };
 };

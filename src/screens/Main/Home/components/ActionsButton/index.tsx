@@ -15,7 +15,7 @@ export const ActionsButton = ({openIncomeModal, openExpenseModal}: Props) => {
     <View style={styles.quickActions}>
       <TouchableOpacity style={styles.actionButton} onPress={openExpenseModal}>
         <View style={styles.actionIconContainer}>
-          <Icon name="plus-circle" size={28} color={theme.primary} />
+          <Icon name="minus-circle" size={28} color={theme.primary} />
         </View>
         <Text style={styles.actionText}>Expenses</Text>
       </TouchableOpacity>

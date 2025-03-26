@@ -1,5 +1,5 @@
 import {ActionReducerMapBuilder, PayloadAction} from '@reduxjs/toolkit';
-import {Transaction, TransactionState, TransactionType} from './types';
+import {Transaction, TransactionState} from './types';
 import {addTransaction, deleteTransaction, fetchTransactions} from './thunks';
 
 export const extraReducers = (builder: ActionReducerMapBuilder<TransactionState>) => {
@@ -11,10 +11,6 @@ export const extraReducers = (builder: ActionReducerMapBuilder<TransactionState>
   builder.addCase(addTransaction.fulfilled, (state, action: PayloadAction<Transaction>) => {
     state.loading = false;
     state.transactions.unshift(action.payload);
-    state.balance =
-      action.payload.type === TransactionType.INCOME
-        ? state.balance + action.payload.amount
-        : state.balance - action.payload.amount;
   });
   builder.addCase(addTransaction.rejected, (state, action) => {
     state.loading = false;
@@ -30,10 +26,6 @@ export const extraReducers = (builder: ActionReducerMapBuilder<TransactionState>
     const deletedTransaction = state.transactions.find(t => t.id === action.payload);
     if (deletedTransaction) {
       state.transactions = state.transactions.filter(t => t.id !== action.payload);
-      state.balance =
-        deletedTransaction.type === TransactionType.INCOME
-          ? state.balance - deletedTransaction.amount
-          : state.balance + deletedTransaction.amount;
     }
     state.loading = false;
   });
@@ -49,8 +41,7 @@ export const extraReducers = (builder: ActionReducerMapBuilder<TransactionState>
   });
   builder.addCase(fetchTransactions.fulfilled, (state, action) => {
     state.loading = false;
-    state.transactions = action.payload.transactions;
-    state.balance = action.payload.balance;
+    state.transactions = action.payload;
   });
   builder.addCase(fetchTransactions.rejected, (state, action) => {
     state.loading = false;
